@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const classSchema = new mongoose.Schema(
+const sectionSchema = new mongoose.Schema(
   {
   name: { 
     type: String, 
@@ -16,6 +16,6 @@ const classSchema = new mongoose.Schema(
   }
 );
 
-const classModel = mongoose.model("Class", classSchema);
+const sectionModel = mongoose.model("Section", sectionSchema);
 
-export default classModel;
+export default sectionModel;

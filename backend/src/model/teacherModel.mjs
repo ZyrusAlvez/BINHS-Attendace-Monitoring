@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 const teacherSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true }, // Hashed
-  classes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Class" }], // Sections they handle
+  sections: [{ type: mongoose.Schema.Types.ObjectId, ref: "Section" }], // Sections they handle
 });
 
 // Hash the password before saving the user

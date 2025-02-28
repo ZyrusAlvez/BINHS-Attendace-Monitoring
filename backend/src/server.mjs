@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 import teacherRouter from "./view/teacherRoute.mjs";
+import sectionRouter from "./view/sectionRoute.mjs";
+import attendanceRouter from "./view/attendanceRoute.mjs";
 
 dotenv.config();
 
@@ -13,6 +15,8 @@ const app = express();
 app.use(express.json());
 
 app.use("/api/teacher", teacherRouter)
+app.use("/api/section", sectionRouter)
+app.use("/api/attendance", attendanceRouter)
 
 mongoose
   .connect(DATABASE)
