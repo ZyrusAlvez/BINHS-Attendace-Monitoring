@@ -63,46 +63,48 @@ const sectionController = {
     }
   },
 
-  // Add students to a class
+  // Add a single student to a section
   addStudents: async (req, res) => {
     try {
-      const { students } = req.body;
+      const student = req.student; // Get student object from req
+      if (!student) return res.status(400).json({ message: "Student is required" });
       const sectionData = await sectionModel.findByIdAndUpdate(
         req.params.id,
-        { $push: { students: { $each: students } } },
+        { 
+          $push: { 
+            students: { _id: student._id, name: student.name, qrCode: student.qrCode } 
+          } 
+        },
         { new: true }
       );
-
-      if (!sectionData) {
-        return res.status(404).json({ message: "section not found" });
-      }
-
+  
+      if (!sectionData) return res.status(404).json({ message: "Section not found" });
+  
       res.status(200).json(sectionData);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   },
-
-  // Remove students from a section
+  
   removeStudents: async (req, res) => {
     try {
-      const { students } = req.body;
+      const student = req.student; // Get student object from middleware
+      if (!student) return res.status(400).json({ message: "Student is required" });
+  
       const sectionData = await sectionModel.findByIdAndUpdate(
-        req.params.id,
-        { $pull: { students: { $in: students } } }, // Remove students from the array
+        req.params.sectionId, // Use the correct section ID
+        { $pull: { students: { _id: student._id } } }, // Remove by _id
         { new: true }
       );
-
-      if (!sectionData) {
-        return res.status(404).json({ message: "section not found" });
-      }
-
-      res.status(200).json(sectionData);
+  
+      if (!sectionData) return res.status(404).json({ message: "Section not found" });
+  
+      res.status(200).json({ message: `Student ${student.name} removed from section`, sectionData });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  }
-
+  }  
+  
 };
 
 export default sectionController;

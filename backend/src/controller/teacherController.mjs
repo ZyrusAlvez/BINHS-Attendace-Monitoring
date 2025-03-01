@@ -54,7 +54,7 @@ const teacherController = {
           sameSite: 'none',
           maxAge: 3600000 * 24, // 24 hours
         })
-        .json({ message: 'Login successful', accessToken, user: username });
+        .json({ message: 'Login successful', accessToken, data: {username: user.username, id: user._id} });
     } catch (error) {
       res.status(500).json({ message: 'Server error', error: error.message });
     }
