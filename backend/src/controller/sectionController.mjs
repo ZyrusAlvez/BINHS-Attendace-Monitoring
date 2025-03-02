@@ -103,8 +103,42 @@ const sectionController = {
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
-  }  
+  },
   
+  markAttendance: async (req, res) => {
+    try {
+      const { studentId, status } = req.body;
+      const sectionId = req.params.id;
+      
+      if (!studentId || !status) {
+        return res.status(400).json({ message: "Student ID and status are required" });
+      }
+  
+      const today = new Date().toISOString().split("T")[0]; // YYYY-MM-DD format
+  
+      // Find section and update student's attendance
+      const sectionData = await sectionModel.findOneAndUpdate(
+        { _id: sectionId, "students._id": studentId },
+        {
+          $set: {
+            "students.$.attendance": {
+              status,
+              date: today,
+            },
+          },
+        },
+        { new: true }
+      );
+  
+      if (!sectionData) {
+        return res.status(404).json({ message: "Section or student not found" });
+      }
+  
+      res.status(200).json({ message: "Attendance marked successfully", sectionData });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  }, 
 };
 
 export default sectionController;

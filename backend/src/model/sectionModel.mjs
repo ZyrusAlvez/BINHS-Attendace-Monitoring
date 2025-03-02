@@ -5,9 +5,22 @@ const sectionSchema = new mongoose.Schema({
   teacher: { type: mongoose.Schema.Types.ObjectId, ref: "Teacher" },
   students: [
     {
-      _id: mongoose.Schema.Types.ObjectId, // Store student ID
+      _id: mongoose.Schema.Types.ObjectId,
       name: String, 
-      qrCode: String 
+      qrCode: String,
+      attendance: [{
+        status: {
+          type: String,
+          enum: ["Present", "Absent", "Late", "Excused"],
+          default : "",
+          required: false,
+        },
+        date: {
+          type: String,
+          required: false,
+        },
+        }
+      ] 
     }
   ]
 });

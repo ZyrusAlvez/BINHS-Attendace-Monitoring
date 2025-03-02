@@ -1,11 +1,12 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import teacherRouter from "./view/teacherRoute.mjs";
 import sectionRouter from "./view/sectionRoute.mjs";
 import studentRouter from "./view/studentRoute.mjs";
-import attendanceRouter from "./view/attendanceRoute.mjs";
 
 dotenv.config();
 
@@ -25,7 +26,6 @@ app.use(
 app.use("/api/teacher", teacherRouter)
 app.use("/api/section", sectionRouter)
 app.use("/api/student", studentRouter)
-app.use("/api/attendance", attendanceRouter)
 
 mongoose
   .connect(DATABASE)
