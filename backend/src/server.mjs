@@ -19,9 +19,11 @@ app.use(cookieParser()); // Add this middleware to parse cookies
 app.use(
   cors({
     origin: true,
-    credentials: true, // Allow cookies and credentials
+    credentials: true, // Required for sending cookies
   })
 );
+
+
 
 app.use("/api/teacher", teacherRouter)
 app.use("/api/section", sectionRouter)

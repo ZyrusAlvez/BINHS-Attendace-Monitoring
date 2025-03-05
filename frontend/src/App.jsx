@@ -1,7 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "./pages/Home.tsx";
-import Login from "./pages/Login.tsx";
-import NotFound from "./pages/NotFound.tsx";
+// import ProtectedRoute from "./component/ProtectedRoute.jsx";
+// import { AuthProvider } from "./context/AuthContext";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/Login.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
 const router = createBrowserRouter([
   {
@@ -21,7 +23,9 @@ const router = createBrowserRouter([
 export default function App() {
   return (
     <>
+    {/* <AuthProvider> */}
       <RouterProvider router={router} />
+    {/* </AuthProvider> */}
     </>
   );
 } 

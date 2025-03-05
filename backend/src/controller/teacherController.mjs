@@ -30,7 +30,7 @@ const teacherController = {
   loginUser: async (req, res) => {
     try {
       const { username, password } = req.body;
-
+      
       // Find the user
       const user = await teacherModel.findOne({ username });
       if (!user) {
@@ -65,7 +65,7 @@ const teacherController = {
       // Ensure cookies are present
       const token = req.cookies?.accessToken;
       if (!token) {
-        console.log("No token provided in cookies");
+        console.log("No token provided in cookies wala talga");
         return res.status(401).json({ message: 'Unauthorized: No token provided' });
       }
 
